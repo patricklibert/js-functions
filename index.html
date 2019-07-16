@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="screen" href="styles.css">
+    <title>js-functions</title>
+
+<style>
+
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    html, body {
+        width: 100%;
+        height: 100%;
+    }
+    ul {
+        list-style-type: none;
+    }
+    button {
+        width: 40px;
+        height: 40px;
+    }
+    #calculator {
+        width: 300px;
+        height: 350px;
+        background-color: lightblue;
+        margin: 50px auto;
+        display: flex;
+        flex-flow: wrap;
+        overflow-wrap:break-word;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly
+    }
+    #calc-preview {
+        width: 90%;
+        height: 100px;
+        background-color: aliceblue;
+        color: gray;
+        text-align: right;
+    }
+    #calc-buttons {
+        width: 90%;
+        height: 200px;
+        display: flex;
+        justify-content: space-between;
+    }
+    #calc-numbers {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    #operations {
+        width: 40%;
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+    .hovering {
+        border-color: hotpink;
+        border-width: 3px;
+    }
+</style>
+
+</head>
+
+<body>
+
+
+<div id="calculator">
+
+    <div id="calc-preview">Make a calculation...</div>
+
+    <div id="calc-buttons">
+
+        <ul id="calc-numbers">
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>0</button>
+        </ul>
+
+        <div id="operations">
+            <button>+</button>
+            <button>-</button>
+            <button>*</button>
+            <button>/</button>
+            <button>%</button>
+            <button>=</button>
+            <button>C</button>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+    /*
+    Write your script here!
+    Note: it is advised to work on this in small steps!
+        1. When you click a button, make your code log something to the console.
+            This way you can see if your event listener is linked properly!
+        2. When you click a button, make the number/operation appear in the calc-preview div.
+        3. ......
+    */
+
+    window.onload = function() {
+        var element = document.getElementsByTagName("button");
+        // declare function for "onMouseOver" event:
+        for (let p = 0; p < 17; p++) {
+            element[p].onmouseover = function () {
+                var nameOfClass = "hovering";
+                element[p].classList.add(nameOfClass);
+            }
+            // declare function for "onMouseOut" event:
+            element[p].onmouseout = function () {
+                var nameOfClass = "hovering";
+                element[p].classList.remove(nameOfClass);
+            }
+        }
+   }
+
+   let i = 0;
+    var inscherm = "";
+    let rekensom = "";
+    var someVar;
+    let resultaat = "";
+    var someInput = document.getElementsByTagName('button');
+    for (let i = 0; i < someInput.length; i++) {
+        if (window.addEventListener) { //Firefox, Chrome, Safari, IE 10
+               someInput[i].addEventListener('click', function() {
+               myFunc(this.innerText)
+            });
+        }
+    }
+    document.addEventListener('keydown', function() {
+        myFunc("",event)
+    });
+    function myFunc(someVar, event)
+    {
+            event = event || window.event;
+            var scherm = document.getElementById("calc-preview");
+            if ((someVar === "%") || (event.shiftKey && event.key==="%")) {
+
+                someVar = someVar.replace("%", "/100*");
+
+            }
+            if (someVar === "=" || (event.which===187 && !event.shiftKey)) {
+                resultaat = eval(rekensom);
+                inscherm += "=" + resultaat;
+                scherm.innerHTML = inscherm;
+            } else if (someVar === "C" || event.which===67){
+                rekensom = "";
+                inscherm = "";
+                scherm.innerHTML = "";
+            } else if (event.shiftKey && event.which>=48 && event.which<=57)  {
+                rekensom += String.fromCharCode(event.which);
+                inscherm += String.fromCharCode(event.which);
+            } else if ((event.shiftKey && event.key==="+")  || (event.shiftKey && event.key==="/") || (event.shiftKey && event.key==="*") || (event.key==="-"))  {
+                rekensom += event.key;
+                inscherm += event.key;
+
+            } else {
+                rekensom += someVar;
+                inscherm += someVar;
+            }
+            scherm.innerHTML = inscherm;
+
+    }
+
+
+</script>
+</body>
+</html>
