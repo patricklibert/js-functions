@@ -38,34 +38,25 @@ function myFunc(someVar, event)
     lastcharacter = rekensom[rekensom.length - 1];
     var scherm = document.getElementById("calc-preview");
     if (someVar === "%" || event.shiftKey && event.key==="%") {
-
         someVar = someVar.replace("%", "/100*");
-
     }
     if (someVar === "=" || (event.which===187 && !event.shiftKey)) {
         resultaat = eval(rekensom);
-
         rekensom = resultaat;
         scherm.innerHTML = resultaat;
     } else if (someVar === "C" || event.which===67){
         rekensom = "";
-
         scherm.innerHTML = "";
     } else if (event.shiftKey && event.which>=48 && event.which<=57)  {
         rekensom += String.fromCharCode(event.which);
-
     } else if ((event.shiftKey && event.key==="+")  || (event.shiftKey && event.key==="/") || (event.shiftKey && event.key==="*") || (event.key==="-"))  {
         if  (charsToSearch.indexOf(lastcharacter) !== -1 && charsToSearch.indexOf(event.key) !== -1)  {
             return
         } else {
             rekensom += event.key;
-
         }
     } else if  (charsToSearch.indexOf(lastcharacter) !== -1 && charsToSearch.indexOf(someVar) !== -1) {
-
         return;
-
-
     } else {
         rekensom += someVar;
     }
